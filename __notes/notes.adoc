@@ -1,0 +1,92 @@
+# Notes on Taiko and the Chrome DevTools Protocol
+
+
+## Running Headless Chrome from the command line
+
+First, figure out how to launch Chrome from the command line
+[source, bash]
+----
+$ chrome 
+----
+
+On MacOS, add the following to `~/.bash_profile`:
+[source, bash]
+----
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --crash-dumps-dir=/tmp"
+----
+
+
+[NOTE]
+.Setting the --crash-dumps-dir
+----
+On MacOS, you must set `--crash-dumps-dir` to a directory that is writable by you. Otherwise, it will fail with a cryptic error. 
+----
+
+[INFO] 
+.Command-line switches for Chrome
+----
+See https://peter.sh/experiments/chromium-command-line-switches/ for a full list of command-line switches for chrome.
+----
+
+
+## Output the DOM
+This will dump the DOM to the screen.
+
+[source, bash]
+----
+$ chrome --headless --dump-dom https://thirstyhead.com/groceryworks
+----
+
+## Create a PDF
+This creates a PDF named `output.pdf` in the current directory.
+
+[source, bash]
+----
+$ chrome --headless --print-to-pdf https://thirstyhead.com/groceryworks
+----
+
+## Take a screenshot
+This creates a PNG named `screenshot.png` in the current directory.
+
+[source, bash]
+----
+$ chrome --headless --screenshot https://thirstyhead.com/groceryworks
+$ chrome --headless --screenshot --window-size=1024,768 https://thirstyhead.com/groceryworks
+----
+
+
+## Chrome REPL (read-eval-print loop)
+Have you ever wanted to open the JavaScript console without opening the GUI? Here's how to open a REPL on a live web page:
+
+[source, bash]
+----
+$ chrome --headless --repl https://thirstyhead.com/groceryworks
+----
+
+## Chrome Remote Debugging Port
+The default port for remotely debugging Chrome is `9222`. 
+
+[source, bash]
+----
+$ chrome --headless --remote-debugging-port=9222 https://thirstyhead.com/groceryworks
+----
+
+Visit `http://localhost:9222` to explore the options available to you.
+
+
+
+
+## Resources
+Here are some resources for further research.
+
+|URL|Description|
+|https://developers.google.com/web/updates/2017/04/headless-chrome | Getting Started with Headless Chrome 
+|https://chromedevtools.github.io/devtools-protocol/ | Chrome DevTools Protocol
+|https://github.com/cyrus-and/chrome-remote-interface/wiki | Chrome-Remote-Interface Wiki (Recipes in JS)
+|https://github.com/ChromeDevTools/awesome-chrome-devtools#chrome-devtools-protocol | Awesome Chrome DevTools (APIs in other languages, etc.)
+|https://developers.google.com/web/tools/puppeteer/ | Puppeteer: A Chrome DevTools Protocol JS API written by Google
+|https://github.com/GoogleChrome/puppeteer | Puppeteer in GitHub
+|https://github.com/GoogleChromeLabs/puppeteer-examples | More advanced Puppeteer examples
+|https://developers.google.com/web/tools/puppeteer/articles/ssr | Headless Chrome: an answer to server-side rendering JS sites
+|http://pptraas.com/ | Puppeteer as a Service
+|https://try-puppeteer.appspot.com/ | Browser-based Puppeteer REPL
